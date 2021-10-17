@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <title>Test Pemrograman Lanjut B - 672019014 - 672019152</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h:form id="formku">
+                <h1>JSF Order Warung Makan using Abstract Factory</h1>
+                <hr />
+                <h:outputLabel value="Jenis Menu" for="menuComponent" class="form-label"/>
+                <h:selectOneMenu id="menuComponent" class="ius" value="#{menu.idMenu}">
+                    <f:selectItem class="ius" itemLabel="Pilih Jenis Menu" itemValue="0" />
+                    <f:selectItems  value="#{menu.menumodel_list}" var="m" itemLabel="#{m.name}" itemValue="#{m.id}"/>
+                    <f:ajax listener="#{menu.ControlMenuChange}" execute=":formku:menuComponent" render=":formku" /> 
+                </h:selectOneMenu>
+                <h:outputLabel value="List Menu" for="menuComponent" class="form-label"/>
+                <h:selectOneMenu id="menuListComponent" class="ius" value="#{menu.idMenuList}" disabled="#{menu.idMenu eq null or menu.idMenu eq 0}">
+                    <f:selectItem itemLabel="Pilih Menu" itemValue="0" />
+                    <f:selectItems value="#{menu.menutmplist}" var="ml" itemLabel="#{ml.name}" itemValue="#{ml.id}"/>
+                    <f:ajax event="change" execute=":formku:menuListComponent" render=":formku" /> 
+                </h:selectOneMenu>
+                <h:outputLabel value="Jumlah Orderan" for="menuComponent" class="form-label"/>
+                <h:inputText value="#{menu.jumlah}" class="ius" id="qu" disabled="#{menu.idMenu eq null or menu.idMenu eq 0 or menu.idMenuList eq null or menu.idMenuList eq 0}"/>
+                <div class="d-flex justify-content-between">
+                    <h:commandButton value="Add to temp" action="#{menu.Outputku}" class="button outline"/>
+                    <h:commandButton value="Hitung Total" action="#{menu.Outputk}" class="button solid" />
+                </div>
+            </h:form>
+            <div class="kotak">
+                <h1>List Orderan Temp</h1>
+                <hr />
+                <h:dataTable value="#{menu.resultlist}" var="p" border="1">  
+                    <h:column>  
+                        <f:facet name="header">Quantity</f:facet>  
+                        <h:outputText value="#{p.itemQuantity}"/>
+
+                    </h:column>  
+                    <h:column>  
+                            <f:facet name="header">Name</f:facet>  
+                            <h:outputText value="#{p.itemName}"/>  
+                    </h:column>  
+                    <h:column>  
+                            <f:facet name="header">Price</f:facet>  
+                            <h:outputText value="#{p.itemPrice}"/>  
+                    </h:column> 
+                </h:dataTable> 
+            </div>
+        </div>
+    </h:body>
+    
+</html>
+

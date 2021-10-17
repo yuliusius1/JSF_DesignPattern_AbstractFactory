@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Result Form</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </h:head>
+    <h:body>
+        <div class="k">
+            <h1>Result JSF Form Warung</h1>
+            <hr />
+            <c:choose>
+                <c:when test="${!empty menu.resultlist}">
+                    <h:dataTable value="#{menu.resultlist}" var="p" border="1">  
+                        <h:column>  
+                            <f:facet name="header">Quantity</f:facet>  
+                            <h:outputText value="#{p.itemQuantity}"/> 
+                            <f:facet name="footer">Total</f:facet> 
+                        </h:column>  
+                        <h:column>  
+                            <f:facet name="header">Name</f:facet>  
+                            <h:outputText value="#{p.itemName}"/>  
+                            <f:facet name="footer"></f:facet> 
+                        </h:column>  
+                        <h:column>  
+                            <f:facet name="header">Price</f:facet>  
+                            <h:outputText value="Rp. #{p.itemPrice}"/> 
+                            <f:facet name="footer">Rp. #{menu.totalPrice}</f:facet> 
+                        </h:column> 
+                    </h:dataTable>
+                </c:when>
+                <c:when test="${empty menu.resultlist}">
+                    <h1> Empty Data </h1>
+                </c:when>
+            </c:choose>
+            <h:outputLink value="#{menu.resetSession}" class="button outline">Kembali ke halaman utama</h:outputLink>
+        </div>
+    </h:body>
+</html>
+
